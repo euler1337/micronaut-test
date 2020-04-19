@@ -1,11 +1,11 @@
 package example.micronaut;
 
-import lombok.NoArgsConstructor;
 
 import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @Singleton
@@ -37,8 +37,6 @@ public class DefaultScoreCalculator implements ScoreCalculator {
                             home.getScore() - away.getScore(),
                             uniquePlayers);
                 }
-
-
             }
             else  if(home.getScore() < away.getScore()) {
                 for (String player : away.getPlayers()) {
