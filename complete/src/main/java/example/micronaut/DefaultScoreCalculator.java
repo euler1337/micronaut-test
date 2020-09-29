@@ -1,6 +1,5 @@
 package example.micronaut;
 
-
 import javax.inject.Singleton;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,7 +11,7 @@ import lombok.NoArgsConstructor;
 public class DefaultScoreCalculator implements ScoreCalculator {
 
     public List<PlayerStats> calculate2(List<GameResult> results) {
-        PlayerStats stats = new PlayerStats("micke",1,1,1);
+        PlayerStats stats = new PlayerStats("micke", 1, 1, 1);
         return List.of(stats, stats);
     }
 
@@ -20,36 +19,45 @@ public class DefaultScoreCalculator implements ScoreCalculator {
 
         HashMap<String, PlayerStats> uniquePlayers = new HashMap<String, PlayerStats>();
 
+        int x = 9;
+        
         for (GameResult game : results) {
             TeamScore home = game.getHome();
             TeamScore away = game.getAway();
 
-            if(home.getScore() > away.getScore()) {
+            if (home.getScore() > away.getScore()) {
                 for (String player : home.getPlayers()) {
-                    updateWin(player,
-                            home.getScore() - away.getScore(),
-                    true,
-                            uniquePlayers);
+                    updateWin(
+                        player,
+                        home.getScore() - away.getScore(),
+                        true,
+                        uniquePlayers
+                    );
                 }
 
                 for (String player : away.getPlayers()) {
-                    updateLoss(player,
-                            home.getScore() - away.getScore(),
-                            uniquePlayers);
+                    updateLoss(
+                        player,
+                        home.getScore() - away.getScore(),
+                        uniquePlayers
+                    );
                 }
-            }
-            else  if(home.getScore() < away.getScore()) {
+            } else if (home.getScore() < away.getScore()) {
                 for (String player : away.getPlayers()) {
-                    updateWin(player,
-                            away.getScore() - home.getScore(),
-                            false,
-                            uniquePlayers);
+                    updateWin(
+                        player,
+                        away.getScore() - home.getScore(),
+                        false,
+                        uniquePlayers
+                    );
                 }
 
                 for (String player : home.getPlayers()) {
-                    updateLoss(player,
-                            away.getScore() - home.getScore(),
-                            uniquePlayers);
+                    updateLoss(
+                        player,
+                        away.getScore() - home.getScore(),
+                        uniquePlayers
+                    );
                 }
             }
         }
@@ -65,13 +73,12 @@ public class DefaultScoreCalculator implements ScoreCalculator {
             val = new PlayerStats(player, 0, 0, 0);
             map.put(player, val);
         }
-        val.setGoalDifference(val.getGoalDifference()+goalDifference);
+        val.setGoalDifference(val.getGoalDifference() + goalDifference);
 
-        if(isHome) {
-            val.setHomeWin(val.getHomeWin()+1);
-        }
-        else {
-            val.setAwayWin(val.getAwayWin()+1);
+        if (isHome) {
+            val.setHomeWin(val.getHomeWin() + 1);
+        } else {
+            val.setAwayWin(val.getAwayWin() + 1);
         }
     }
 
@@ -82,7 +89,7 @@ public class DefaultScoreCalculator implements ScoreCalculator {
             val = new PlayerStats(player, 0, 0, 0);
             map.put(player, val);
         }
-        val.setGoalDifference(val.getGoalDifference()-goalDifference);
+        val.setGoalDifference(val.getGoalDifference() - goalDifference);
     }
 
 }
